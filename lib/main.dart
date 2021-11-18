@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:pokedex/common/repository/pokemon_repository.dart';
 import 'package:pokedex/features/home/container/home_container.dart';
@@ -18,12 +19,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.red,
       ),
       home: HomeContainer(
-        repository: PokemonRepository()
+        repository: PokemonRepository(dio: Dio())
       ),
     );
   }
 }
-
-
-
-git remote add origin git@github.com:ravnan11/Pokedex.git
