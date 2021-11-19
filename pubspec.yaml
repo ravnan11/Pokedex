@@ -28,6 +28,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   dio: ^4.0.3
+  build_runner: ^2.1.5
   flutter:
     sdk: flutter
 
