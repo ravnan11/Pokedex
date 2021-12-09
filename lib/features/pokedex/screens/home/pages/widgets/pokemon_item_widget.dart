@@ -10,11 +10,11 @@ class PokemonItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        GestureDetector(
-          onTap: () => onTap('/details', DetailArguments(pokemon: pokemon)),
-          child: Container(
+    return GestureDetector(
+      onTap: () => onTap('/details', DetailArguments(pokemon: pokemon)),
+      child: Stack(
+        children: [
+          Container(
             decoration: BoxDecoration(
               color: pokemon.baseColor!.withOpacity(0.8),
               borderRadius: BorderRadius.circular(16),
@@ -54,19 +54,21 @@ class PokemonItemWidget extends StatelessWidget {
                           width: 100,
                         ),
                       ),
-                      Positioned(
-                        bottom: 12,
-                        right: 2,
-                        child: Image.network(pokemon.image),
-                      )
                     ],
                   )
                 ],
               ),
             ),
           ),
-        ),
-      ],
+          Positioned(
+            bottom: 12,
+            right: 2,
+            child: Image.network(
+              pokemon.image
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
