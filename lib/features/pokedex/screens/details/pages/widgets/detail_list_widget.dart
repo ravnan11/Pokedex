@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex/common/models/pokemon.dart';
+import 'package:pokedex/features/pokedex/screens/details/pages/widgets/detail_item_list_widget.dart';
 
 class DetailListWidget extends StatelessWidget {
-  const DetailListWidget({Key? key,required this.pokemon,required this.list}) : super(key: key);
+  const DetailListWidget({
+    Key? key,
+    required this.pokemon,
+    required this.list,
+    required this.controller,
+    required this.onChangePokemon
+  }) : super(key: key);
   final Pokemon pokemon;
   final List<Pokemon> list;
+  final PageController controller;
+  final ValueChanged<Pokemon> onChangePokemon;
+
 
   @override
   Widget build(BuildContext context) {
-    return  Positioned(
-      top: 80,
-      left: 0,
-      right: 0,
-      height: 350,
+    return  SliverToBoxAdapter(
       child: Container(
         color: pokemon.baseColor,
         child: Column(
@@ -44,14 +50,20 @@ class DetailListWidget extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 56),
-              child: SizedBox(
-                height: 200,
-                width: double.infinity,
-                child: PageView(
-                  children: list.map((e) => Image.network(e.image, fit: BoxFit.contain)).toList(),
-                ),
+            SizedBox(
+              height: 300,
+              width: double.infinity,
+              child: PageView(
+                controller: controller,
+                onPageChanged: (index)=> onChangePokemon(list[index]),
+                children: list.map((e) { 
+                  bool diff = e.name != pokemon.name;
+                  return DetailItemListWidget(
+                    isDiff: diff, 
+                    pokemon: e,
+                    
+                  );
+                }).toList(),
               ),
             ),
           ],
